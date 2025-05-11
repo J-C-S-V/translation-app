@@ -52,6 +52,7 @@ This project is a Single Page Application (SPA), utilizing modern web technologi
     <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a></li>
     <li><a href="https://react-bootstrap.github.io/">React Bootstrap</a></li>
     <li><a href="https://git-scm.com/">Git</a></li>
+    <li><a href="https://vitejs.dev/">Vite</a></li>
   </ul>
 </details>
 

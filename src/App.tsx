@@ -1,34 +1,65 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useReducer } from "react";
+
+const initialState = {
+  fromLanguage: "auto",
+  toLanguage: "en",
+  fromText: "",
+  result: "",
+  isLoading: false,
+};
+
+function reducer(state, action) {
+  const { type, payload } = action;
+
+  if (type === "INTERCHANGE_LANGUAGES") {
+    return {
+      ...state,
+      fromLanguage: state.toLanguage,
+      toLanguage: state.fromLanguage,
+    };
+  }
+
+  if (type === "SET_TO_LANGUAGE") {
+    return {
+      ...state,
+      toLanguage: payload,
+    };
+  }
+  if (type === "SET_FROM_LANGUAGE") {
+    return {
+      ...state,
+      toLanguage: true,
+      fromLanguage: payload,
+    };
+  }
+  if (type === "SET_FROM_TEXT") {
+    return {
+      ...state,
+      fromText: payload,
+      result: "",
+    };
+  }
+
+  if (type === "SET_RESULT") {
+    return {
+      ...state,
+      isLoading: false,
+      result: payload,
+    };
+  }
+
+  return state;
+}
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <h1>Hello</h1>
+    </div>
   );
 }
 
