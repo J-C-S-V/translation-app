@@ -46,11 +46,12 @@ This project is a Single Page Application (SPA), utilizing modern web technologi
 <details>
   <summary>Languages and technologies</summary><br>
   <ul>
-    <li>Vanilla JavaScript</li>
-    <li>HTML</li>
-    <li>CSS</li>
-    <li>Git</li>
-    <li>Reaper</li>
+    <li><a href="https://reactjs.org/">React.js</a></li>
+    <li><a href="https://www.typescriptlang.org/">TypeScript</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a></li>
+    <li><a href="https://react-bootstrap.github.io/">React Bootstrap</a></li>
+    <li><a href="https://git-scm.com/">Git</a></li>
   </ul>
 </details>
 
