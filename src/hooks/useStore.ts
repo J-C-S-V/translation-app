@@ -1,4 +1,10 @@
-import { type Action, type State } from "../types";
+import { AUTO_LANGUAGE } from "../constants";
+import {
+  type Action,
+  type FromLanguage,
+  type Language,
+  type State,
+} from "../types";
 import { useReducer } from "react";
 
 const initialState: State = {
@@ -13,6 +19,9 @@ function reducer(state: State, action: Action) {
   const { type } = action;
 
   if (type === "INTERCHANGE_LANGUAGES") {
+    if (state.fromLanguage === AUTO_LANGUAGE) {
+      return state;
+    }
     return {
       ...state,
       fromLanguage: state.toLanguage,
@@ -29,7 +38,6 @@ function reducer(state: State, action: Action) {
   if (type === "SET_FROM_LANGUAGE") {
     return {
       ...state,
-      toLanguage: true,
       fromLanguage: action.payload,
     };
   }
@@ -60,11 +68,11 @@ export function useStore() {
     dispatch({ type: "INTERCHANGE_LANGUAGES" });
   };
 
-  const setFromLanguage = (payload: string) => {
+  const setFromLanguage = (payload: FromLanguage) => {
     dispatch({ type: "SET_FROM_LANGUAGE", payload });
   };
 
-  const setToLanguage = (payload: string) => {
+  const setToLanguage = (payload: Language) => {
     dispatch({ type: "SET_TO_LANGUAGE", payload });
   };
 
@@ -84,5 +92,9 @@ export function useStore() {
     isLoading,
     // dispatch, this is a bad practice, we should not expose the dispatch function
     interchangeLanguages,
+    setFromLanguage,
+    setToLanguage,
+    setFromText,
+    setResult,
   };
 }

@@ -1,74 +1,37 @@
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useReducer } from "react";
-import { type Action, type State } from "./types";
-
-const initialState: State = {
-  fromLanguage: "auto",
-  toLanguage: "en",
-  fromText: "",
-  result: "",
-  isLoading: false,
-};
-
-function reducer(state: State, action: Action) {
-  const { type } = action;
-
-  if (type === "INTERCHANGE_LANGUAGES") {
-    return {
-      ...state,
-      fromLanguage: state.toLanguage,
-      toLanguage: state.fromLanguage,
-    };
-  }
-
-  if (type === "SET_TO_LANGUAGE") {
-    return {
-      ...state,
-      toLanguage: action.payload,
-    };
-  }
-  if (type === "SET_FROM_LANGUAGE") {
-    return {
-      ...state,
-      toLanguage: true,
-      fromLanguage: action.payload,
-    };
-  }
-  if (type === "SET_FROM_TEXT") {
-    return {
-      ...state,
-      fromText: action.payload,
-      result: "",
-    };
-  }
-
-  if (type === "SET_RESULT") {
-    return {
-      ...state,
-      isLoading: false,
-      result: action.payload,
-    };
-  }
-
-  return state;
-}
+import { Container, Row, Col, Button } from "react-bootstrap";
+import "./App.css";
+import { useStore } from "./hooks/useStore";
+import { AUTO_LANGUAGE } from "./constants";
+import { IconArrow } from "./components/icons";
 
 function App() {
-  const [{ fromLanguage }, dispatch] = useReducer(reducer, initialState);
+  const { interchangeLanguages, toLanguage, fromLanguage } = useStore();
 
   return (
-    <div>
+    <Container fluid>
       <h1>Translation app</h1>
-      <button
-        onClick={() => {
-          dispatch({ type: "SET_FROM_LANGUAGE", payload: "es" });
-        }}
-      >
-        Change to Spanish
-        {" " + fromLanguage}
-      </button>
-    </div>
+
+      <Row>
+        <Col>
+          <h2>From</h2>
+          <p>{fromLanguage}</p>
+        </Col>
+        <Col>
+          <Button
+            variant="link"
+            disabled={fromLanguage === AUTO_LANGUAGE}
+            onClick={interchangeLanguages}
+          >
+            <IconArrow />
+          </Button>
+        </Col>
+        <Col>
+          <h2>to</h2>
+          <p>{toLanguage}</p>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
