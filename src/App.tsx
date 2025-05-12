@@ -4,9 +4,16 @@ import "./App.css";
 import { useStore } from "./hooks/useStore";
 import { AUTO_LANGUAGE } from "./constants";
 import { IconArrow } from "./components/icons";
+import { LanguageSelector } from "./components/LanguageSelector";
 
 function App() {
-  const { interchangeLanguages, toLanguage, fromLanguage } = useStore();
+  const {
+    interchangeLanguages,
+    toLanguage,
+    fromLanguage,
+    setFromLanguage,
+    setToLanguage,
+  } = useStore();
 
   return (
     <Container fluid>
@@ -15,7 +22,12 @@ function App() {
       <Row>
         <Col>
           <h2>From</h2>
-          <p>{fromLanguage}</p>
+          <LanguageSelector
+            onChange={setFromLanguage}
+            type="from"
+            value={fromLanguage}
+          />
+          {fromLanguage}
         </Col>
         <Col>
           <Button
@@ -28,7 +40,11 @@ function App() {
         </Col>
         <Col>
           <h2>to</h2>
-          <p>{toLanguage}</p>
+          <LanguageSelector
+            onChange={setToLanguage}
+            type="to"
+            value={toLanguage}
+          />
         </Col>
       </Row>
     </Container>
