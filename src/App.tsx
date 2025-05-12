@@ -5,14 +5,20 @@ import { useStore } from "./hooks/useStore";
 import { AUTO_LANGUAGE } from "./constants";
 import { IconArrow } from "./components/icons";
 import { LanguageSelector } from "./components/LanguageSelector";
+import { TextArea } from "./components/TextArea";
 
 function App() {
   const {
-    interchangeLanguages,
+    isLoading,
     toLanguage,
     fromLanguage,
+    fromText,
+    result,
+    interchangeLanguages,
     setFromLanguage,
     setToLanguage,
+    setFromText,
+    setResult,
   } = useStore();
 
   return (
@@ -21,15 +27,20 @@ function App() {
 
       <Row>
         <Col>
-          <h2>From</h2>
           <LanguageSelector
             onChange={setFromLanguage}
             type="from"
             value={fromLanguage}
           />
-          {fromLanguage}
+          <TextArea
+            type="from"
+            value={fromText}
+            onChange={setFromText}
+            loading={isLoading}
+            autofocus={true}
+          />
         </Col>
-        <Col>
+        <Col xs="auto">
           <Button
             variant="link"
             disabled={fromLanguage === AUTO_LANGUAGE}
@@ -39,11 +50,16 @@ function App() {
           </Button>
         </Col>
         <Col>
-          <h2>to</h2>
           <LanguageSelector
             onChange={setToLanguage}
             type="to"
             value={toLanguage}
+          />
+          <TextArea
+            type="to"
+            loading={isLoading}
+            value={result}
+            onChange={setResult}
           />
         </Col>
       </Row>
