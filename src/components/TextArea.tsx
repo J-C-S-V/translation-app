@@ -42,7 +42,7 @@ export const TextArea = ({
       placeholder={getPlaceholder({ type, loading })}
       value={value}
       onChange={handleChange}
-      disabled={loading}
+      disabled={type === "to"}
     />
   );
 };
