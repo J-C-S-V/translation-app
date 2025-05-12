@@ -1,8 +1,9 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useReducer } from "react";
+import { type Action, type State } from "./types";
 
-const initialState = {
+const initialState: State = {
   fromLanguage: "auto",
   toLanguage: "en",
   fromText: "",
@@ -10,8 +11,8 @@ const initialState = {
   isLoading: false,
 };
 
-function reducer(state, action) {
-  const { type, payload } = action;
+function reducer(state: State, action: Action) {
+  const { type } = action;
 
   if (type === "INTERCHANGE_LANGUAGES") {
     return {
@@ -24,20 +25,20 @@ function reducer(state, action) {
   if (type === "SET_TO_LANGUAGE") {
     return {
       ...state,
-      toLanguage: payload,
+      toLanguage: action.payload,
     };
   }
   if (type === "SET_FROM_LANGUAGE") {
     return {
       ...state,
       toLanguage: true,
-      fromLanguage: payload,
+      fromLanguage: action.payload,
     };
   }
   if (type === "SET_FROM_TEXT") {
     return {
       ...state,
-      fromText: payload,
+      fromText: action.payload,
       result: "",
     };
   }
@@ -46,7 +47,7 @@ function reducer(state, action) {
     return {
       ...state,
       isLoading: false,
-      result: payload,
+      result: action.payload,
     };
   }
 
@@ -54,11 +55,19 @@ function reducer(state, action) {
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [{ fromLanguage }, dispatch] = useReducer(reducer, initialState);
 
   return (
     <div>
-      <h1>Hello</h1>
+      <h1>Translation app</h1>
+      <button
+        onClick={() => {
+          dispatch({ type: "SET_FROM_LANGUAGE", payload: "es" });
+        }}
+      >
+        Change to Spanish
+        {" " + fromLanguage}
+      </button>
     </div>
   );
 }
