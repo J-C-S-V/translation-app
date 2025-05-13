@@ -5,7 +5,7 @@ import {
   type FromLanguage,
   type Language,
   type State,
-} from "../types";
+} from "../types.d";
 
 const initialState: State = {
   fromLanguage: "auto",
