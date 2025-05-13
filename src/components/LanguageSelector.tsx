@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 import { AUTO_LANGUAGE, SUPPORTED_LANGUAGES } from "../constants";
-import { type FromLanguage, type Language } from "../types";
+import { type FromLanguage, type Language } from "../types.d";
 
 // interface Props {
 //     type: "from" | "to";
