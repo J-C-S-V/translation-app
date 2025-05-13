@@ -3,7 +3,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import "./App.css";
 import { useStore } from "./hooks/useStore";
 import { AUTO_LANGUAGE } from "./constants";
-import { IconArrow } from "./components/icons";
+import { IconArrow } from "./components/Icons";
 import { LanguageSelector } from "./components/LanguageSelector";
 import { TextArea } from "./components/TextArea";
 
