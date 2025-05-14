@@ -8,6 +8,7 @@ import { LanguageSelector } from "./components/LanguageSelector";
 import { TextArea } from "./components/TextArea";
 import { useEffect } from "react";
 import { translate } from "./services/translate";
+import { useDebounce } from "./hooks/useDebounce";
 
 function App() {
   const {
@@ -23,26 +24,28 @@ function App() {
     setResult,
   } = useStore();
 
+  const debouncedText = useDebounce(fromText);
+
   useEffect(() => {
     if (fromText === "") return;
-
-    translate({ fromLanguage, toLanguage, text: fromText })
-      .then((result) => {
-        if (result == null) return;
-        setResult(result);
-        console.log(result);
-      })
-      .catch(() => {
-        setResult("Error: ");
-      });
-  }, [fromText]);
+    if (debouncedText) {
+      translate({ fromLanguage, toLanguage, text: fromText })
+        .then((result) => {
+          if (result == null) return;
+          setResult(result);
+        })
+        .catch(() => {
+          setResult("Error: ");
+        });
+    }
+  }, [debouncedText]);
 
   return (
-    <Container fluid>
+    <Container fluid className="container">
       <h1>Translation app</h1>
 
-      <Row>
-        <Col>
+      <Row className="first-row">
+        <Col md={5}>
           <LanguageSelector
             onChange={setFromLanguage}
             type="from"
@@ -52,7 +55,6 @@ function App() {
             type="from"
             value={fromText}
             onChange={setFromText}
-            loading={isLoading}
             autofocus={true}
           />
         </Col>
@@ -65,7 +67,7 @@ function App() {
             <IconArrow />
           </Button>
         </Col>
-        <Col>
+        <Col md={5}>
           <LanguageSelector
             onChange={setToLanguage}
             type="to"
@@ -73,7 +75,7 @@ function App() {
           />
           <TextArea
             type="to"
-            loading={isLoading}
+            isLoading={isLoading}
             value={result}
             onChange={setResult}
           />

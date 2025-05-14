@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 
 interface Props {
   type: "from" | "to";
-  loading?: boolean;
+  isLoading?: boolean;
   onChange: (value: string) => void;
   value: string;
   autofocus?: boolean;
@@ -10,14 +10,14 @@ interface Props {
 
 const getPlaceholder = ({
   type,
-  loading,
+  isLoading,
 }: {
   type: "from" | "to";
-  loading?: boolean;
+  isLoading?: boolean;
 }) => {
   if (type === "from") {
     return "Enter text";
-  } else if (loading === true) {
+  } else if (isLoading === true) {
     return "Translating...";
   } else {
     return "Translation";
@@ -27,7 +27,7 @@ const getPlaceholder = ({
 export const TextArea = ({
   type,
   autofocus,
-  loading,
+  isLoading,
   value,
   onChange,
 }: Props) => {
@@ -38,8 +38,8 @@ export const TextArea = ({
     <Form.Control
       autoFocus={type === "from" && autofocus}
       as="textarea"
-      rows={3}
-      placeholder={getPlaceholder({ type, loading })}
+      rows={7}
+      placeholder={getPlaceholder({ type, isLoading })}
       value={value}
       onChange={handleChange}
       disabled={type === "to"}

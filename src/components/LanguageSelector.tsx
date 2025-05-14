@@ -2,12 +2,6 @@ import { Form } from "react-bootstrap";
 import { AUTO_LANGUAGE, SUPPORTED_LANGUAGES } from "../constants";
 import { type FromLanguage, type Language } from "../types.d";
 
-// interface Props {
-//     type: "from" | "to";
-//     value: FromLanguage | Language;
-//     onChange: (language: FromLanguage | Language) => void;
-// }
-
 type Props =
   | {
       type: "from";
