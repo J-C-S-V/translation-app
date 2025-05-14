@@ -53,7 +53,7 @@ function reducer(state: State, action: Action) {
     return {
       ...state,
       isLoading: false,
-      // result: action.payload,
+      result: action.payload,
     };
   }
 

@@ -1,6 +1,6 @@
-# Metronome App
+# Fast translation app
 
-A personalized metronome app for musicians. It allows users to set custom beats and tempos.
+A personalized translation app for users. It allows users to translate text between different languages.
 
 <a name="readme-top"></a>
 
