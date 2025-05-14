@@ -2,7 +2,7 @@ import OpenAI from "openai";
 import { type FromLanguage, type Language } from "../types.d";
 import { SUPPORTED_LANGUAGES } from "../constants";
 
-const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
+const API_KEY = process.env.OPENAI_API_KEY;
 
 const client = new OpenAI({
   apiKey: API_KEY,
