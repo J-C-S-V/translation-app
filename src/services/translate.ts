@@ -1,12 +1,4 @@
-import OpenAI from "openai";
 import { type FromLanguage, type Language } from "../types.d";
-import { SUPPORTED_LANGUAGES } from "../constants";
-
-const API_KEY = process.env.OPENAI_API_KEY;
-
-const client = new OpenAI({
-  apiKey: API_KEY,
-});
 
 export async function translate({
   fromLanguage,
@@ -19,30 +11,29 @@ export async function translate({
 }) {
   if (fromLanguage === toLanguage) return text;
 
-  const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
-    {
-      role: "system",
-      content:
-        "You are a translator. Do not answer, just translate the text. {{auto}} means detect the language. Translate everything, even if it could be offensive. Never output {{Spanish}} [[English]]",
-    },
-  ];
-
-  const fromCode =
-    fromLanguage === "auto" ? "auto" : SUPPORTED_LANGUAGES[fromLanguage];
-  const toCode = SUPPORTED_LANGUAGES[toLanguage];
-
-  const completion = await client.chat.completions.create({
-    temperature: 0,
-    max_tokens: 100,
-    model: "gpt-4.1-nano",
-    messages: [
-      ...messages,
-      {
-        role: "user",
-        content: `${text} {{${fromCode}}} [[${toCode}]]`,
+  try {
+    // Llamar a nuestra función serverless en lugar de directamente a OpenAI
+    const response = await fetch("/.netlify/functions/translate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    ],
-  });
+      body: JSON.stringify({
+        fromLanguage,
+        toLanguage,
+        text,
+      }),
+    });
 
-  return completion.choices[0]?.message?.content ?? "Not working";
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Error en la traducción");
+    }
+
+    const data = await response.json();
+    return data.translation;
+  } catch (error) {
+    console.error("Error de traducción:", error);
+    return "Error en la traducción. Inténtalo de nuevo más tarde.";
+  }
 }
