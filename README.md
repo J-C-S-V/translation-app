@@ -33,11 +33,11 @@ A personalized translation app for users. It allows users to translate text betw
 
 # 📖 About the project <a name="about-project"></a>
 
-This project is a metronome web application designed to help users maintain consistent rhythm and tempo through an intuitive and minimalistic metronome interface. It allows users to set beats per minute (BPM). The application is built using vanilla JavaScript.
+This project is a translation app that allows users to translate text between different languages. It is designed to be user-friendly and efficient, providing a seamless experience for users who need quick translations.
 
-To ensure a responsive and accurate user experience, a smoke test was conducted, making sure the tempo shown on the interface matched the expected BPM. It offers both visual and auditory cues for beats.
+OpenAI's GPT-4 model was used to power the translation functionality, serverless functions to handle the API requests, and Netlify for deployment.
 
-This project is a Single Page Application (SPA), utilizing modern web technologies to deliver a smooth and interactive experience. With client-side rendering, the app provides real-time feedback and settings adjustments without the need for page reloads, allowing users to focus entirely on their rhythm training.
+The app is built using React and TypeScript, ensuring a modern and responsive design. The user interface is clean and intuitive, making it easy for users to input text and receive translations.
 
 ## 🛠 Built with <a name="built-with"></a>
 

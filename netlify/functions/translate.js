@@ -48,6 +48,12 @@ exports.handler = async function (event, context) {
         },
       ],
     });
+    console.log("Request body:", event.body);
+    console.log(
+      "Environment key:",
+      process.env.OPENAI_API_KEY ? "Exists" : "Missing"
+    );
+    console.log("Completion object:", completion);
 
     return {
       statusCode: 200,

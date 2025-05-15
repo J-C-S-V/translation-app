@@ -12,7 +12,6 @@ export async function translate({
   if (fromLanguage === toLanguage) return text;
 
   try {
-    // Llamar a nuestra función serverless en lugar de directamente a OpenAI
     const response = await fetch("/.netlify/functions/translate", {
       method: "POST",
       headers: {
@@ -25,15 +24,23 @@ export async function translate({
       }),
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || "Error en la traducción");
+    const rawText = await response.text();
+
+    let data;
+    try {
+      data = JSON.parse(rawText);
+    } catch (jsonError) {
+      console.error("Error parsing JSON:", jsonError);
+      return "Invalid server response.";
     }
 
-    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || "Translation error");
+    }
+
     return data.translation;
   } catch (error) {
-    console.error("Error de traducción:", error);
-    return "Error en la traducción. Inténtalo de nuevo más tarde.";
+    console.error("Translation error:", error);
+    return "Translation error. Please try again later.";
   }
 }
