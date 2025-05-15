@@ -3,9 +3,11 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import "./App.css";
 import { useStore } from "./hooks/useStore";
 import { AUTO_LANGUAGE } from "./constants";
-import { IconArrow } from "./components/Icons";
 import { LanguageSelector } from "./components/LanguageSelector";
 import { TextArea } from "./components/TextArea";
+import { useEffect } from "react";
+import { translate } from "./services/translate";
+import { useDebounce } from "./hooks/useDebounce";
 
 function App() {
   const {
@@ -21,12 +23,28 @@ function App() {
     setResult,
   } = useStore();
 
+  const debouncedText = useDebounce(fromText);
+
+  useEffect(() => {
+    if (fromText === "") return;
+    if (debouncedText) {
+      translate({ fromLanguage, toLanguage, text: fromText })
+        .then((result) => {
+          if (result == null) return;
+          setResult(result);
+        })
+        .catch(() => {
+          setResult("Error: ");
+        });
+    }
+  }, [debouncedText]);
+
   return (
-    <Container fluid>
+    <Container fluid className="container">
       <h1>Translation app</h1>
 
-      <Row>
-        <Col>
+      <Row className="first-row">
+        <Col md={5}>
           <LanguageSelector
             onChange={setFromLanguage}
             type="from"
@@ -36,7 +54,6 @@ function App() {
             type="from"
             value={fromText}
             onChange={setFromText}
-            loading={isLoading}
             autofocus={true}
           />
         </Col>
@@ -46,10 +63,18 @@ function App() {
             disabled={fromLanguage === AUTO_LANGUAGE}
             onClick={interchangeLanguages}
           >
-            <IconArrow />
+            <svg
+              width={24}
+              height={24}
+              focusable="false"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"></path>
+            </svg>
           </Button>
         </Col>
-        <Col>
+        <Col md={5}>
           <LanguageSelector
             onChange={setToLanguage}
             type="to"
@@ -57,7 +82,7 @@ function App() {
           />
           <TextArea
             type="to"
-            loading={isLoading}
+            isLoading={isLoading}
             value={result}
             onChange={setResult}
           />
