@@ -1,12 +1,12 @@
-# Fast translation app
+# Fast Translation App
 
 A personalized translation app for users. It allows users to translate text between different languages.
 
 <a name="readme-top"></a>
 
 <div align="center">
-  <a href="https://j-c-s-v.github.io/metronome/" target="_blank">
-  <img src="./metronome_hero.png" alt="logo" width="440" height="auto" /><br/>
+  <a href="https://translation-ai-app.netlify.app/" target="_blank">
+  <img src="./public/img_hero.png" alt="logo" width="440" height="auto" /><br/>
   </a>
 </div>
 
@@ -46,7 +46,7 @@ The app is built using React and TypeScript, ensuring a modern and responsive de
 <details>
   <summary>Languages and technologies</summary><br>
   <ul>
-    <li><a href="https://reactjs.org/">React.js</a></li>
+    <li><a href="https://react.dev/">React.js</a></li>
     <li><a href="https://www.typescriptlang.org/">TypeScript</a></li>
     <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML</a></li>
     <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a></li>
@@ -58,14 +58,14 @@ The app is built using React and TypeScript, ensuring a modern and responsive de
 
 ### Key features <a name="key-features"></a>
 
-- **[Customizable BPM]**
-- **[Minimalistic user interface]**
-- **[Single Page Application]**
+- **[Fast translation]**
+- **[Minimalist design]**
+- **[Multilanguage support]**
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🚀 Live demo <a name="live-demo"></a>
 
-- [Live Demo Link](https://j-c-s-v.github.io/metronome/)
+- [Live Demo Link](https://translation-ai-app.netlify.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -77,15 +77,20 @@ To get a local copy up and running, follow these steps.
 
 Clone this repository to your desired folder:
 
-`git clone` https://github.com/J-C-S-V/metronome.git
+`git clone` https://github.com/J-C-S-V/translation-app
 
 ### Install
 
-No need to install any dependencies for this project.
+`cd translation-app`<br>
+This will navigate to the project directory.
+
+`npm install`<br>
+This will install all the necessary dependencies for the project.
 
 ### Usage
 
-Open the `index.html` file in your browser to view the project.
+`npm run dev`<br>
+This will start the development server and open the app in your default web browser.
 
 ### Run tests
 
@@ -95,7 +100,8 @@ Tests will be added in the future.
 
 You can deploy this project using:
 
-- [GitHub Pages](https://pages.github.com/)
+- [Netlify](https://www.netlify.com/)<br>
+  It is recommended to use Netlify for deployment as it provides functions for serverless API requests.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -111,9 +117,9 @@ You can deploy this project using:
 
 ## 🔭 Future features <a name="future-features"></a>
 
-- [ ] **[Personalized beats]**
-- [ ] **[Tempo tap detection]**
-- [ ] **[Custom subdivisions]**
+- [ ] **[Responsive design]**
+- [ ] **[Text to speech]**
+- [ ] **[Copy button]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -141,6 +147,6 @@ I would like to thank Reaper for providing the audio engine for this project �
 
 ## 📝 License <a name="license"></a>
 
-This project is [MIT](https://github.com/J-C-S-V/metronome/blob/main/README.md) licensed.
+This project is [MIT](https://github.com/J-C-S-V/translation-app/blob/main/MIT.md) licensed.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
