@@ -1,112 +1,63 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 // import { Container, Row, Col, Button } from "react-bootstrap";
 import "./App.css";
-import { useStore } from "./hooks/useStore";
 // import { AUTO_LANGUAGE } from "./constants";
 // import { LanguageSelector } from "./components/LanguageSelector";
 // import { TextArea } from "./components/TextArea";
-import { useEffect, useReducer } from "react";
-import { translate } from "./services/translate";
-import { useDebounce } from "./hooks/useDebounce";
+import { useReducer } from "react";
+
+const initialState = { count: 0 };
+
+const TYPES = {
+  DECREMENT: "DECREMENT",
+  RESET: "RESET",
+  INCREMENT: "INCREMENT",
+};
 
 function reducer(state, action) {
-  if (action.type === "increment_age") {
-    console.log("Age incremented");
+  switch (action.type) {
+    case TYPES.DECREMENT:
+      return { count: state.count - action.payload };
+    case TYPES.RESET:
+      return initialState;
+    case TYPES.INCREMENT:
+      return { count: state.count + action.payload };
+
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
   }
-  return { age: state.age + 1 };
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, { age: 32 });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const handleClickIncrement = () => {
-    dispatch({ type: "increment_age" });
+  const handleClickDecrementFive = () => {
+    dispatch({ type: TYPES.DECREMENT, payload: 5 });
+  };
+  const handleClickDecrementOne = () => {
+    dispatch({ type: TYPES.DECREMENT, payload: 1 });
+  };
+  const handleClickReset = () => {
+    dispatch({ type: TYPES.RESET });
   };
 
-  // const {
-  //   // isLoading,
-  //   toLanguage,
-  //   fromLanguage,
-  //   fromText,
-  //   // result,
-  //   // interchangeLanguages,
-  //   // setFromLanguage,
-  //   // setToLanguage,
-  //   // setFromText,
-  //   setResult,
-  // } = useStore();
-
-  // const debouncedText = useDebounce(fromText);
-
-  // useEffect(() => {
-  //   if (fromText === "") return;
-  //   if (debouncedText) {
-  //     translate({ fromLanguage, toLanguage, text: fromText })
-  //       .then((result) => {
-  //         if (result == null) return;
-  //         setResult(result);
-  //       })
-  //       .catch(() => {
-  //         setResult("Error: ");
-  //       });
-  //   }
-  // }, [debouncedText]);
+  const handleClickIncrementOne = () => {
+    dispatch({ type: TYPES.INCREMENT, payload: 1 });
+  };
+  const handleClickIncrementFive = () => {
+    dispatch({ type: TYPES.INCREMENT, payload: 5 });
+  };
 
   return (
-    // <Container fluid className="container">
-    //   <h1>Translation app</h1>
-
-    //   <Row className="first-row">
-    //     <Col md={5}>
-    //       <LanguageSelector
-    //         onChange={setFromLanguage}
-    //         type="from"
-    //         value={fromLanguage}
-    //       />
-    //       <TextArea
-    //         type="from"
-    //         value={fromText}
-    //         onChange={setFromText}
-    //         autofocus={true}
-    //       />
-    //     </Col>
-    //     <Col xs="auto">
-    //       <Button
-    //         variant="link"
-    //         disabled={fromLanguage === AUTO_LANGUAGE}
-    //         onClick={interchangeLanguages}
-    //       >
-    //         <svg
-    //           width={24}
-    //           height={24}
-    //           focusable="false"
-    //           xmlns="http://www.w3.org/2000/svg"
-    //           viewBox="0 0 24 24"
-    //         >
-    //           <path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"></path>
-    //         </svg>
-    //       </Button>
-    //     </Col>
-    //     <Col md={5}>
-    //       <LanguageSelector
-    //         onChange={setToLanguage}
-    //         type="to"
-    //         value={toLanguage}
-    //       />
-    //       <TextArea
-    //         type="to"
-    //         isLoading={isLoading}
-    //         value={result}
-    //         onChange={setResult}
-    //       />
-    //     </Col>
-    //   </Row>
-    // </Container>
     <>
-      <h1>hi</h1>
+      <h1>Counter</h1>
       <main>
-        <button onClick={handleClickIncrement}>Increment</button>
-        <div>{state.age}</div>
+        <button onClick={handleClickDecrementFive}>Decrement -5</button>
+        <button onClick={handleClickDecrementOne}>Decrement</button>
+        <button onClick={handleClickReset}>Reset</button>
+        <button onClick={handleClickIncrementOne}>Increment</button>
+        <button onClick={handleClickIncrementFive}>Increment +5</button>
+        <div>{state.count}</div>
       </main>
     </>
   );
